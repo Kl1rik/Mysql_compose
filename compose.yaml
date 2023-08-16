@@ -1,0 +1,31 @@
+version: '3.5'
+services:
+    db:
+      image: mysql:latest
+      restart: always
+      container_name: mysql_container
+      environment:
+        MYSQL_ROOT_PASSWORD: 'example'
+        MYSQL_DATABASE: 'test'
+        MYSQL_USER: 'test'
+        MYSQL_PASSWORD: 'testtest'
+      ports:
+        - "3306:3306"   
+    adminer:
+      image: adminer
+      restart: always
+      ports:
+        - '58080:8080'
+      depends_on: 
+        - db  
+    phpmyadmin:
+      image: phpmyadmin
+      restart: always
+      container_name: phpmyadmin_container
+      ports:
+        - "8080:80"
+      environment:
+        PMA_ARBITRARY: "1"  
+      depends_on:
+        - db
+    
